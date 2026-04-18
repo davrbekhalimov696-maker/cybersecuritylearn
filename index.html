@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber AI Mentor</title>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }
+        .chat-box { width: 80%; max-width: 600px; background: #161b22; padding: 20px; border-radius: 10px; border: 1px solid #30363d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; color: white; border-radius: 5px; margin-top: 10px; box-sizing: border-box; }
+        button { background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; }
+        button:hover { background: #2ea043; }
+        #response { margin-top: 20px; line-height: 1.6; white-space: pre-wrap; color: #58a6ff; }
+        h1 { color: #58a6ff; }
+    </style>
+</head>
+<body>
+    <h1>🛡️ CyberSecurity AI Mentor</h1>
+    <div class="chat-box">
+        <div id="response">Kiberxavfsizlik haqida savol bering...</div>
+        <input type="text" id="userInput" placeholder="Masalan: SQL Injection nima?">
+        <button onclick="askAI()">Savol berish</button>
+    </div>
+
+    <script>
+        async function askAI() {
+            const input = document.getElementById('userInput').value;
+            const resDiv = document.getElementById('response');
+            resDiv.innerText = "O'ylayapman...";
+
+            const response = await fetch('/ask', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: input})
+            });
+            const data = await response.json();
+            resDiv.innerText = data.answer;
+        }
+    </script>
+</body>
+</html>
